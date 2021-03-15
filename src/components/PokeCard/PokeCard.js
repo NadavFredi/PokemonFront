@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import classes from './PokeCard.module.css';
-const axios = require('axios');
+import axios from 'axios';
 
 const PokeCard = ({ pokeId }) => {
 
 
     const [pic, setPic] = useState("");
     const [name, setName] = useState("");
-    const [type, setType] = useState("");
+    const [types, setTypes] = useState([]);
     const [weaks, setWeaks] = useState("");
     const [moves, setMoves] = useState([]);
     const [evolveChain, setEvolveChain] = useState([]);
@@ -23,7 +23,7 @@ const PokeCard = ({ pokeId }) => {
                 const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}`);
                 setPic(data.sprites.other.dream_world.front_default);
                 setName(data.name);
-                setType(data.types[0].type.name);
+                setTypes(data.types.map(type => type.type.name));
                 setMoves(data.moves.map(el => el.move.name));
                 setGames(data.game_indices.map(el => el.version.name));
                 setSpeciesUrl(data.species.url);
@@ -68,13 +68,13 @@ const PokeCard = ({ pokeId }) => {
     return (
         <div className={classes.pokeCard}>
             <img src={pic} className={classes.avatar} alt="pic" />
-            <div>name: {name}</div>
-            <div>type: {type}</div>
-            <div>name: {name}</div>
-            <div>evolves from: {evolveFrom}</div>
-            <div>evolve chain: {evolveChain.map((name, index) => (
-                <div key={index}>{name}</div>
-            ))}</div>
+            <div className={classes.flex}>
+                <div className={classes.id}>#{pokeId}</div>
+                <div className={classes.name}>{name}</div>
+                {types.map(type => (
+                    <div className={`${classes.types} ${classes.type}`}>{type}</div>
+                ))}
+            </div>
         </div>
     )
 }
