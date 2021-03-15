@@ -1,0 +1,21 @@
+@import url("../../utilities/vars.css");
+.navbar {
+  width: 100%;
+  background-color: red;
+  padding: 1.5rem;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.favoriteLogo {
+  padding: 4px 0px;
+  display: block;
+  margin: auto;
+}
