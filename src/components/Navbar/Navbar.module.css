@@ -1,18 +1,22 @@
 @import url("../../utilities/vars.css");
 .navbar {
   width: 100%;
-  background-color: red;
-  padding: 1.5rem;
+  /* background-color: red; */
+  padding: 1.5rem 0 1.5rem 0;
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   text-transform: capitalize;
   margin: auto;
   margin-bottom: 1rem;
-  display: block;
+  /* display: block; */
 }
 
 .flex {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  /* margin: 0 2rem 0 2rem; */
 }
 
 .favoriteLogo {
