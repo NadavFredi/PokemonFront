@@ -6,7 +6,7 @@ const Favorites = ({ pokeIds }) => {
     return (
         <div className={classes.favorites}>
             <div className={classes.grid} >
-                {pokeIds.map(id => <PokeCard pokeId={id} />)}
+                {pokeIds.map(id => <PokeCard pokeId={id} detailed={false} />)}
             </div>
             <h1 > Those are all<br />my Favorite Pokemons! </h1>
         </div>

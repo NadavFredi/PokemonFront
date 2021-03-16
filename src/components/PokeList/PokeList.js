@@ -13,7 +13,6 @@ const PokeList = ({ amount, toggle }) => {
 
                 data = data.results;
                 setPokedex(data.map(el => el));
-                console.log(data);
 
             } catch (error) {
                 console.log(error)
@@ -25,7 +24,7 @@ const PokeList = ({ amount, toggle }) => {
     return (
         <div className="Container" >
             <div className={classes.grid} >
-                {pokedex.map((data, index) => <PokeCard pokeId={index + 1} toggle={toggle} />)}
+                {pokedex.map((data, index) => <PokeCard pokeId={index + 1} key={index} detailed={false} />)}
             </div>
         </div>
     )

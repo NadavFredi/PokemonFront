@@ -4,8 +4,9 @@ import axios from 'axios';
 import Backdrop from '../Backdrop/Backdrop';
 // import Spinner from '../Spinner/Spinner';
 import { Ouroboro } from 'react-spinners-css';
+import { Link } from 'react-router-dom';
 
-const PokeCard = ({ pokeId }) => {
+const PokeCard = ({ pokeId, detailed }) => {
 
 
     const [pic, setPic] = useState("");
@@ -44,7 +45,10 @@ const PokeCard = ({ pokeId }) => {
 
                 //theres only 2 at max evolves
                 const evolveArr = [];
-                const firstEvolve = res.data.chain.evolves_to[0];
+                let firstEvolve;
+                if (res.data.chain.evolves_to) {
+                    firstEvolve = res.data.chain.evolves_to[0];
+                }
                 if (firstEvolve && firstEvolve.species.name !== data.name) {
                     evolveArr.push(firstEvolve.species.name);
                 }
@@ -88,7 +92,7 @@ const PokeCard = ({ pokeId }) => {
 
     }
 
-    const content = (
+    const normalContent = (
         <div>
             <img src={pic} className={classes.avatar} alt="picture" />
             <div className={classes.flex}>
@@ -108,12 +112,45 @@ const PokeCard = ({ pokeId }) => {
 
     );
 
+    // const detailed = true;
+
+    let content;
+    const detailedcontent = (
+        <div>
+            <img src={pic} className={classes.avatar} alt="picture" />
+            <div className={classes.flexDetailed}>
+                <div className={classes.idDetailed}>#{pokeId}</div>
+                <div className={classes.nameDetailed}>{name}</div>
+                <div className={classes.typesDetailed}>
+                    {types.map(type => {
+                        const btnStyle = [classes.typeDetailed];
+                        return (
+                            <div className={matchClassTo(btnStyle, type)} >{type}</div>
+                        )
+                    })}
+                </div>
+            </div>
+
+            {evolveFrom &&
+                (<div className={classes.evolved}>
+                    evolved from:
+                </div>)}
+
+        </div>
+    );
+    if (detailed) {
+        content = detailedcontent;
+    }
+    else {
+        content = normalContent;
+    }
+
 
     return (
 
-        <div className={classes.pokeCard}  >
+        <Link to={`/pokemon/${pokeId}`} className={classes.pokeCard}  >
             {loading ? <Ouroboro /> : content}
-        </div>
+        </Link>
     )
 }
 

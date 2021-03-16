@@ -8,6 +8,7 @@ import {
   Route
 } from "react-router-dom";
 import Favorites from './components/Favorites/Favorites';
+import PokeInfo from './components/PokeInfo/PokeInfo';
 
 const App = () => {
   const pokeNumber = 151;
@@ -23,11 +24,11 @@ const App = () => {
         </Route>
 
         <Route path="/favorites">
-          <Favorites pokeIds={[1, 2, 3, 4, 5, 6]} />
+          <Favorites pokeIds={[1, 2, 3, 80, 5, 6]} />
         </Route>
 
         <Route path="/pokemon/:id">
-          <div>pokemon </div>
+          <PokeInfo />
         </Route>
       </Switch>
 
