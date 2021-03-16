@@ -71,9 +71,32 @@ const PokeCard = ({ pokeId }) => {
             <div className={classes.flex}>
                 <div className={classes.id}>#{pokeId}</div>
                 <div className={classes.name}>{name}</div>
-                {types.map(type => (
-                    <div className={`${classes.types} ${classes.type}`}>{type}</div>
-                ))}
+                <div className={classes.types}>
+                    {types.map(type => {
+                        const btnStyle = [classes.type];
+                        if (type === "grass") btnStyle.push(classes.grass);
+                        if (type === "fire") btnStyle.push(classes.fire);
+                        if (type === "water") btnStyle.push(classes.water);
+                        if (type === "bug") btnStyle.push(classes.bug);
+                        if (type === "poison") btnStyle.push(classes.poison);
+                        if (type === "electric") btnStyle.push(classes.electric);
+                        if (type === "fairy") btnStyle.push(classes.fairy);
+                        if (type === "normal") btnStyle.push(classes.normal);
+                        if (type === "fly") btnStyle.push(classes.fly);
+                        btnStyle.push(classes.fly);
+                        if (type === "ground") btnStyle.push(classes.ground);
+                        if (type === "fighting") btnStyle.push(classes.fighting);
+                        if (type === "psychic") btnStyle.push(classes.psychic);
+                        if (type === "ghost") btnStyle.push(classes.ghost);
+                        if (type === "rock") btnStyle.push(classes.rock);
+                        if (type === "ice") btnStyle.push(classes.ice);
+                        if (type === "dragon") btnStyle.push(classes.dragon);
+                        return (
+                            <div className={btnStyle.join(' ')} >{type}</div>
+                        )
+                    })}
+                </div>
+
             </div>
         </div>
     )
