@@ -3,11 +3,9 @@ import classes from './PokeList.module.css';
 import axios from 'axios';
 import PokeCard from '../PokeCard/PokeCard';
 
-const PokeList = ({ amount }) => {
+const PokeList = ({ amount, toggle }) => {
 
     const [pokedex, setPokedex] = useState([]);
-
-
     useEffect(() => {
         const fetch = async () => {
             try {
@@ -22,13 +20,12 @@ const PokeList = ({ amount }) => {
             }
         }
         fetch();
-
     }, [])
 
     return (
         <div className="Container" >
             <div className={classes.grid} >
-                {pokedex.map((data, index) => <PokeCard pokeId={index + 1} />)}
+                {pokedex.map((data, index) => <PokeCard pokeId={index + 1} toggle={toggle} />)}
             </div>
         </div>
     )

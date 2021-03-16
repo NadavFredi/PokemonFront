@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import classes from './PokeCard.module.css';
 import axios from 'axios';
+import Backdrop from '../Backdrop/Backdrop';
+// import Spinner from '../Spinner/Spinner';
+import { Ouroboro } from 'react-spinners-css';
 
 const PokeCard = ({ pokeId }) => {
 
@@ -15,11 +18,13 @@ const PokeCard = ({ pokeId }) => {
     const [speciesUrl, setSpeciesUrl] = useState("");
     const [evolutionUrl, setEvolutionUrl] = useState("");
     const [evolveFrom, setEvolveFrom] = useState("");
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         const fetch = async () => {
             try {
+                setLoading(true);
                 const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}`);
                 setPic(data.sprites.other.dream_world.front_default);
                 setName(data.name);
@@ -48,56 +53,66 @@ const PokeCard = ({ pokeId }) => {
                 if (secondEvolve && secondEvolve.species.name !== data.name) {
                     evolveArr.push(secondEvolve.species.name);
                 }
-
                 setEvolveChain(evolveArr.map(ev => ev));
 
-
-                console.log(evolveArr);
-
-
-
+                setLoading(false);
             } catch (error) {
                 console.log(error);
+                setLoading(false);
+
             }
         }
         fetch();
 
     }, []);
 
+    const matchClassTo = (btnStyle, type) => {
+        if (type === "grass") btnStyle.push(classes.grass);
+        if (type === "fire") btnStyle.push(classes.fire);
+        if (type === "water") btnStyle.push(classes.water);
+        if (type === "bug") btnStyle.push(classes.bug);
+        if (type === "poison") btnStyle.push(classes.poison);
+        if (type === "electric") btnStyle.push(classes.electric);
+        if (type === "fairy") btnStyle.push(classes.fairy);
+        if (type === "normal") btnStyle.push(classes.normal);
+        if (type === "fly") btnStyle.push(classes.fly);
+        btnStyle.push(classes.fly);
+        if (type === "ground") btnStyle.push(classes.ground);
+        if (type === "fighting") btnStyle.push(classes.fighting);
+        if (type === "psychic") btnStyle.push(classes.psychic);
+        if (type === "ghost") btnStyle.push(classes.ghost);
+        if (type === "rock") btnStyle.push(classes.rock);
+        if (type === "ice") btnStyle.push(classes.ice);
+        if (type === "dragon") btnStyle.push(classes.dragon);
+        return btnStyle.join(' ');
 
-    return (
-        <div className={classes.pokeCard}>
-            <img src={pic} className={classes.avatar} alt="pic" />
+    }
+
+    const content = (
+        <div>
+            <img src={pic} className={classes.avatar} alt="picture" />
             <div className={classes.flex}>
                 <div className={classes.id}>#{pokeId}</div>
                 <div className={classes.name}>{name}</div>
                 <div className={classes.types}>
                     {types.map(type => {
                         const btnStyle = [classes.type];
-                        if (type === "grass") btnStyle.push(classes.grass);
-                        if (type === "fire") btnStyle.push(classes.fire);
-                        if (type === "water") btnStyle.push(classes.water);
-                        if (type === "bug") btnStyle.push(classes.bug);
-                        if (type === "poison") btnStyle.push(classes.poison);
-                        if (type === "electric") btnStyle.push(classes.electric);
-                        if (type === "fairy") btnStyle.push(classes.fairy);
-                        if (type === "normal") btnStyle.push(classes.normal);
-                        if (type === "fly") btnStyle.push(classes.fly);
-                        btnStyle.push(classes.fly);
-                        if (type === "ground") btnStyle.push(classes.ground);
-                        if (type === "fighting") btnStyle.push(classes.fighting);
-                        if (type === "psychic") btnStyle.push(classes.psychic);
-                        if (type === "ghost") btnStyle.push(classes.ghost);
-                        if (type === "rock") btnStyle.push(classes.rock);
-                        if (type === "ice") btnStyle.push(classes.ice);
-                        if (type === "dragon") btnStyle.push(classes.dragon);
                         return (
-                            <div className={btnStyle.join(' ')} >{type}</div>
+                            <div className={matchClassTo(btnStyle, type)} >{type}</div>
                         )
                     })}
                 </div>
 
             </div>
+        </div>
+
+    );
+
+
+    return (
+
+        <div className={classes.pokeCard}  >
+            {loading ? <Ouroboro /> : content}
         </div>
     )
 }

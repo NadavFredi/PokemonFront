@@ -5,6 +5,7 @@
   padding: 1.5rem 0 1.5rem 0;
   position: sticky;
   top: 0;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
   text-transform: capitalize;
   margin: auto;
@@ -16,11 +17,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #fff;
   /* margin: 0 2rem 0 2rem; */
 }
 
-.favoriteLogo {
+a:-webkit-any-link {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.favoriteLogo,
+.favoriteLogo:active,
+.favoriteLogo:focus {
   padding: 4px 0px;
   display: block;
   margin: auto;
+  text-decoration: none;
+  color: #fff;
 }

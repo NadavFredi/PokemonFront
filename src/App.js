@@ -1,15 +1,36 @@
 import './App.css';
+import { useState } from 'react';
 import Navbar from './components/Navbar/Navbar';
-import PokeCard from './components/PokeCard/PokeCard';
 import PokeList from './components/PokeList/PokeList';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Favorites from './components/Favorites/Favorites';
 
-function App() {
+const App = () => {
   const pokeNumber = 151;
+
 
   return (
     <div className="App">
       <Navbar />
-      <PokeList amount={pokeNumber} />
+
+      <Switch>
+        <Route exact path="/">
+          <PokeList amount={pokeNumber} />
+        </Route>
+
+        <Route path="/favorites">
+          <Favorites pokeIds={[1, 2, 3, 4, 5, 6]} />
+        </Route>
+
+        <Route path="/pokemon/:id">
+          <div>pokemon </div>
+        </Route>
+      </Switch>
+
     </div>
   );
 }
