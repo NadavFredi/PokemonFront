@@ -184,7 +184,7 @@
   color: #fff;
 }
 
-.evolved {
+.evolvedTitle {
   text-align: start;
   width: 25%;
   font-size: 1.5rem;
@@ -194,5 +194,9 @@
   padding-bottom: 2px;
   margin-left: 1rem;
   border-bottom: black solid 1px;
+  color: black;
+}
+
+.evolveData {
   color: black;
 }

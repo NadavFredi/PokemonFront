@@ -93,7 +93,7 @@ const PokeCard = ({ pokeId, detailed }) => {
     }
 
     const normalContent = (
-        <div>
+        <div className={classes.pokeCard}>
             <img src={pic} className={classes.avatar} alt="picture" />
             <div className={classes.flex}>
                 <div className={classes.id}>#{pokeId}</div>
@@ -116,7 +116,7 @@ const PokeCard = ({ pokeId, detailed }) => {
 
     let content;
     const detailedcontent = (
-        <div>
+        <div className={classes.pokeCardDetailed}>
             <img src={pic} className={classes.avatar} alt="picture" />
             <div className={classes.flexDetailed}>
                 <div className={classes.idDetailed}>#{pokeId}</div>
@@ -132,9 +132,16 @@ const PokeCard = ({ pokeId, detailed }) => {
             </div>
 
             {evolveFrom &&
-                (<div className={classes.evolved}>
-                    evolved from:
-                </div>)}
+                (
+                    <div>
+                        <div className={classes.evolvedTitle}>
+                            evolved from:
+                        </div>
+                        <div className={classes.evolveData}>
+                            {evolveFrom}
+                        </div>
+                    </div>
+                )}
 
         </div>
     );
@@ -148,8 +155,9 @@ const PokeCard = ({ pokeId, detailed }) => {
 
     return (
 
-        <Link to={`/pokemon/${pokeId}`} className={classes.pokeCard}  >
-            {loading ? <Ouroboro /> : content}
+        <Link to={`/pokemon/${pokeId}`}   >
+            {loading && <div className={classes.pokeCard}> <Ouroboro /></div>}
+            {!loading && content}
         </Link>
     )
 }

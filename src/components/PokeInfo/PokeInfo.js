@@ -13,7 +13,7 @@ const PokeInfo = () => {
     console.log(id);
 
     return (
-        <div className={classes.flex}>
+        <div >
             <PokeCard pokeId={id} detailed={true} />
         </div>
     )
