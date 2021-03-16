@@ -114,6 +114,14 @@ const PokeCard = ({ pokeId, detailed }) => {
 
     // const detailed = true;
 
+    let movesGrid = classes.detailGrid2;
+    if (moves.length > 10) movesGrid = classes.detailGrid3;
+    if (moves.length > 30) movesGrid = classes.detailGrid4;
+    let gamesGrid = classes.detailGrid2;
+    if (games.length > 10) gamesGrid = classes.detailGrid3;
+    if (games.length > 30) gamesGrid = classes.detailGrid4;
+
+
     let content;
     const detailedcontent = (
         <div className={classes.pokeCardDetailed}>
@@ -130,20 +138,48 @@ const PokeCard = ({ pokeId, detailed }) => {
                     })}
                 </div>
             </div>
-
-            {evolveFrom &&
-                (
-                    <div>
-                        <div className={classes.evolvedTitle}>
-                            evolved from:
+            <div className={classes.detailFlex}>
+                <div className={classes.detailContainer}>
+                    <div className={classes.detailTitle}>
+                        evolved from
                         </div>
-                        <div className={classes.evolveData}>
-                            {evolveFrom}
-                        </div>
+                    <div className={classes.detailData}>
+                        {evolveFrom ? evolveFrom : "didn't evolve"}
                     </div>
-                )}
+                </div>
+                <div className={classes.detailContainer}>
+                    <div className={classes.detailTitle}>
+                        can evolve to
+                        </div>
 
+                    {evolveChain.map(el => <div className={classes.detailData}>{el} </div>)}
+                </div>
+            </div>
+
+            {/* copy */}
+            <div className={classes.detailFlex}>
+                <div className={classes.detailContainer}>
+                    <div className={classes.detailTitle}>
+                        moves of pokemon
+                    </div>
+                    <div className={movesGrid}>
+                        {moves.map(el => <div className={classes.detailData}>{el} </div>)}
+                    </div>
+
+                </div>
+            </div>
+            <div className={classes.detailContainer}>
+                <div className={classes.detailTitle}>
+                    avilable in games
+                </div>
+
+                <div className={gamesGrid}>
+                    {games.map(el => <div className={classes.detailData}>{el} </div>)}
+                </div>
+            </div>
         </div>
+
+
     );
     if (detailed) {
         content = detailedcontent;
