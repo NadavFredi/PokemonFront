@@ -14,6 +14,9 @@ const PokeList = ({ amount, toggle }) => {
                 data = data.results;
                 setPokedex(data.map(el => el));
 
+
+
+
             } catch (error) {
                 console.log(error)
             }
