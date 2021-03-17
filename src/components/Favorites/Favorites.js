@@ -16,7 +16,7 @@ const Favorites = ({ pokeIds }) => {
     useEffect(() => {
         dispatch(addToFavorite({ id: 8, img: 2, name: 10 }));
         dispatch(addToFavorite({ id: 10, img: 2, name: 10 }));
-        dispatch(addData({ img: 2, name: 10 }));
+        // dispatch(addData({ img: 2, name: 10 }));
         dispatch(removeFromFavorite(10));
 
     }, [])

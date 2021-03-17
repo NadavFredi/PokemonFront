@@ -1,6 +1,6 @@
 import { ADD_DATA } from './generalActionTypes'
 
-const initialState = [{}];
+const initialState = [];
 
 const general = (state = initialState, action) => {
     const { type, payload } = action;
