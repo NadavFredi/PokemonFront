@@ -15,10 +15,13 @@ import Favorites from './components/Favorites/Favorites';
 import PokeInfo from './components/PokeInfo/PokeInfo';
 
 const App = () => {
-  const pokeNumber = 151;
+  const POKEMON_NUMBER = 151;
 
   const dispatch = useDispatch();
+
   useEffect(() => {
+
+
     const addToStore = async (pokeId) => {
       try {
         const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}`);
@@ -52,13 +55,12 @@ const App = () => {
         let secondEvolve = "secondev";
         if (res.data.chain && res.data.chain.evolves_to[0])
           secondEvolve = res.data.chain.evolves_to[0].evolves_to[0];
-        if (secondEvolve && secondEvolve.species.name !== data.name) {
+        if (secondEvolve && secondEvolve.species && secondEvolve.species.name !== data.name) {
           evolveArr.push(secondEvolve.species.name);
         }
         const evolveChain = evolveArr.map(ev => ev);
         const obj = { id: pokeId, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, game: games, evolveFrom: evolveFrom };
-        // console.log(obj)
-        dispatch(addData(obj));
+        console.log(obj)
         dispatch(addData(obj));
 
         // setLoading(false);
@@ -69,7 +71,12 @@ const App = () => {
       }
 
     }
-    addToStore(10);
+
+    for (let i = 1; i <= POKEMON_NUMBER; i++) {
+      addToStore(i);
+    }
+
+    // fetch();
   }, []);
 
 
@@ -80,7 +87,7 @@ const App = () => {
 
       <Switch>
         <Route exact path="/">
-          <PokeList amount={pokeNumber} />
+          <PokeList amount={POKEMON_NUMBER} />
         </Route>
 
         <Route path="/favorites">

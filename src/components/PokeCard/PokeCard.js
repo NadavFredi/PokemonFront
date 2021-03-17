@@ -46,14 +46,16 @@ const PokeCard = ({ pokeId, detailed }) => {
                 //theres only 2 at max evolves
                 const evolveArr = [];
                 let firstEvolve;
-                if (res.data.chain.evolves_to) {
+                if (firstEvolve && res.data.chain.evolves_to) {
                     firstEvolve = res.data.chain.evolves_to[0];
                 }
                 if (firstEvolve && firstEvolve.species.name !== data.name) {
                     evolveArr.push(firstEvolve.species.name);
                 }
 
-                const secondEvolve = res.data.chain.evolves_to[0].evolves_to[0];
+                let secondEvolve;
+                if (res.data.chain && res.data.chain.evolves_to[0])
+                    secondEvolve = res.data.chain.evolves_to[0].evolves_to[0];
                 if (secondEvolve && secondEvolve.species.name !== data.name) {
                     evolveArr.push(secondEvolve.species.name);
                 }
