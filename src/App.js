@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addData } from './redux/general/generalActions';
+import { Ouroboro } from 'react-spinners-css';
 
 import Navbar from './components/Navbar/Navbar';
 import PokeList from './components/PokeList/PokeList';
@@ -16,14 +17,16 @@ import PokeInfo from './components/PokeInfo/PokeInfo';
 
 const App = () => {
   const POKEMON_NUMBER = 151;
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
 
-
     const addToStore = async (pokeId) => {
       try {
+        setLoading(true);
+
         const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}`);
         const pic = data.sprites.other.dream_world.front_default;
         const name = data.name;
@@ -59,8 +62,7 @@ const App = () => {
           evolveArr.push(secondEvolve.species.name);
         }
         const evolveChain = evolveArr.map(ev => ev);
-        const obj = { id: pokeId, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, game: games, evolveFrom: evolveFrom };
-        console.log(obj)
+        const obj = { id: pokeId, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom };
         dispatch(addData(obj));
 
         // setLoading(false);
@@ -72,9 +74,15 @@ const App = () => {
 
     }
 
+    setLoading(true);
+
     for (let i = 1; i <= POKEMON_NUMBER; i++) {
+      setLoading(true);
+
       addToStore(i);
     }
+    setLoading(false);
+
 
     // fetch();
   }, []);
@@ -85,19 +93,21 @@ const App = () => {
     <div className="App">
       <Navbar />
 
-      <Switch>
-        <Route exact path="/">
-          <PokeList amount={POKEMON_NUMBER} />
-        </Route>
+      {loading ? <Ouroboro /> :
 
-        <Route path="/favorites">
-          <Favorites pokeIds={[1, 2, 3, 80, 5, 6]} />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <PokeList amount={POKEMON_NUMBER} />
+          </Route>
 
-        <Route path="/pokemon/:id">
-          <PokeInfo />
-        </Route>
-      </Switch>
+          <Route path="/favorites">
+            <Favorites pokeIds={[1, 2, 3, 80, 5, 6]} />
+          </Route>
+
+          <Route path="/pokemon/:id">
+            <PokeInfo />
+          </Route>
+        </Switch>}
 
     </div>
   );

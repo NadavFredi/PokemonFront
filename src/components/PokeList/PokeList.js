@@ -1,33 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import classes from './PokeList.module.css';
-import axios from 'axios';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
+import classes from './PokeList.module.css';
+
 
 const PokeList = ({ amount, toggle }) => {
 
-    const [pokedex, setPokedex] = useState([]);
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                let { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${amount}`);
-
-                data = data.results;
-                setPokedex(data.map(el => el));
-
-
-
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        fetch();
-    }, [])
+    const cards = useSelector(state => state.generalReducer);
 
     return (
         <div className="Container" >
             <div className={classes.grid} >
-                {pokedex.map((data, index) => <PokeCard pokeId={index + 1} key={index} detailed={false} />)}
+                {cards.map((data, index) => <PokeCard pokeId={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFromdetailed={false} />)}
             </div>
         </div>
     )

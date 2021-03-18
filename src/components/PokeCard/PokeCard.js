@@ -1,76 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import classes from './PokeCard.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+
 import axios from 'axios';
 import Backdrop from '../Backdrop/Backdrop';
 // import Spinner from '../Spinner/Spinner';
 import { Ouroboro } from 'react-spinners-css';
 import { Link } from 'react-router-dom';
 
-const PokeCard = ({ pokeId, detailed }) => {
-
-
-    const [pic, setPic] = useState("");
-    const [name, setName] = useState("");
-    const [types, setTypes] = useState([]);
-    const [weaks, setWeaks] = useState("");
-    const [moves, setMoves] = useState([]);
-    const [evolveChain, setEvolveChain] = useState([]);
-    const [games, setGames] = useState([]);
-    const [speciesUrl, setSpeciesUrl] = useState("");
-    const [evolutionUrl, setEvolutionUrl] = useState("");
-    const [evolveFrom, setEvolveFrom] = useState("");
-    const [loading, setLoading] = useState(false);
-
-
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                setLoading(true);
-                const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}`);
-                setPic(data.sprites.other.dream_world.front_default);
-                setName(data.name);
-                setTypes(data.types.map(type => type.type.name));
-                setMoves(data.moves.map(el => el.move.name));
-                setGames(data.game_indices.map(el => el.version.name));
-                setSpeciesUrl(data.species.url);
-
-                const evolveData = await axios.get(data.species.url);
-                setEvolutionUrl(evolveData.data.evolution_chain.url);
-                if (evolveData.data.evolves_from_species) {
-                    setEvolveFrom(evolveData.data.evolves_from_species.name);
-                }
-
-                const res = await axios.get(evolveData.data.evolution_chain.url);
-
-
-                //theres only 2 at max evolves
-                const evolveArr = [];
-                let firstEvolve;
-                if (firstEvolve && res.data.chain.evolves_to) {
-                    firstEvolve = res.data.chain.evolves_to[0];
-                }
-                if (firstEvolve && firstEvolve.species.name !== data.name) {
-                    evolveArr.push(firstEvolve.species.name);
-                }
-
-                let secondEvolve;
-                if (res.data.chain && res.data.chain.evolves_to[0])
-                    secondEvolve = res.data.chain.evolves_to[0].evolves_to[0];
-                if (secondEvolve && secondEvolve.species.name !== data.name) {
-                    evolveArr.push(secondEvolve.species.name);
-                }
-                setEvolveChain(evolveArr.map(ev => ev));
-
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-                setLoading(false);
-
-            }
-        }
-        fetch();
-
-    }, []);
+const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom }) => {
 
     const matchClassTo = (btnStyle, type) => {
         if (type === "grass") btnStyle.push(classes.grass);
@@ -96,12 +34,12 @@ const PokeCard = ({ pokeId, detailed }) => {
 
     const normalContent = (
         <div className={classes.pokeCard}>
-            <img src={pic} className={classes.avatar} alt="picture" />
+            <img src={pic} className={classes.avatar} alt="pic" />
             <div className={classes.flex}>
                 <div className={classes.id}>#{pokeId}</div>
                 <div className={classes.name}>{name}</div>
                 <div className={classes.types}>
-                    {types.map(type => {
+                    {types && types.map(type => {
                         const btnStyle = [classes.type];
                         return (
                             <div className={matchClassTo(btnStyle, type)} >{type}</div>
@@ -117,22 +55,22 @@ const PokeCard = ({ pokeId, detailed }) => {
     // const detailed = true;
 
     let movesGrid = classes.detailGrid2;
-    if (moves.length > 10) movesGrid = classes.detailGrid3;
-    if (moves.length > 30) movesGrid = classes.detailGrid4;
+    if (moves && moves.length > 10) movesGrid = classes.detailGrid3;
+    if (moves && moves.length > 30) movesGrid = classes.detailGrid4;
     let gamesGrid = classes.detailGrid2;
-    if (games.length > 10) gamesGrid = classes.detailGrid3;
-    if (games.length > 30) gamesGrid = classes.detailGrid4;
+    if (games && games.length > 10) gamesGrid = classes.detailGrid3;
+    if (games && games.length > 30) gamesGrid = classes.detailGrid4;
 
 
     let content;
     const detailedcontent = (
         <div className={classes.pokeCardDetailed}>
-            <img src={pic} className={classes.avatar} alt="picture" />
+            <img src={pic} className={classes.avatar} alt="pic" />
             <div className={classes.flexDetailed}>
                 <div className={classes.idDetailed}>#{pokeId}</div>
                 <div className={classes.nameDetailed}>{name}</div>
                 <div className={classes.typesDetailed}>
-                    {types.map(type => {
+                    {types && types.map(type => {
                         const btnStyle = [classes.typeDetailed];
                         return (
                             <div className={matchClassTo(btnStyle, type)} >{type}</div>
@@ -154,7 +92,7 @@ const PokeCard = ({ pokeId, detailed }) => {
                         can evolve to
                         </div>
 
-                    {evolveChain.map(el => <div className={classes.detailData}>{el} </div>)}
+                    {evolveChain && evolveChain.map(el => <div className={classes.detailData}>{el} </div>)}
                 </div>
             </div>
 
@@ -165,7 +103,7 @@ const PokeCard = ({ pokeId, detailed }) => {
                         moves of pokemon
                     </div>
                     <div className={movesGrid}>
-                        {moves.map(el => <div className={classes.detailData}>{el} </div>)}
+                        {moves && moves.map(el => <div className={classes.detailData}>{el} </div>)}
                     </div>
 
                 </div>
@@ -176,7 +114,7 @@ const PokeCard = ({ pokeId, detailed }) => {
                 </div>
 
                 <div className={gamesGrid}>
-                    {games.map(el => <div className={classes.detailData}>{el} </div>)}
+                    {games && games.map(el => <div className={classes.detailData}>{el} </div>)}
                 </div>
             </div>
         </div>
@@ -194,8 +132,9 @@ const PokeCard = ({ pokeId, detailed }) => {
     return (
 
         <Link to={`/pokemon/${pokeId}`}   >
-            {loading && <div className={classes.pokeCard}> <Ouroboro /></div>}
-            {!loading && content}
+            {/* {loading && <div className={classes.pokeCard}> <Ouroboro /></div>}
+            {!loading && content} */}
+            {content}
         </Link>
     )
 }
