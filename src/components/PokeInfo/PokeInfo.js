@@ -13,7 +13,8 @@ const PokeInfo = () => {
 
 
     const cards = useSelector(state => state.generalReducer);
-    const card = cards.filter(card => card.id === id.toString())[0];
+    const card = cards.filter(c => c.id == id)[0];
+
 
     return (
         <div >
