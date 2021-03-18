@@ -218,7 +218,6 @@
 }
 
 .avatar {
-  position: sticky;
   top: 0;
   width: 100%;
   height: 120px;
@@ -264,7 +263,14 @@
   border-radius: 5px;
   background-color: var(--light-blue);
   font-size: 1.2rem;
+  cursor: pointer;
   /* margin-left: 0.1rem; */
+  transform: scale(1);
+  transition: 0.2s ease-in;
+}
+
+.type:hover {
+  transform: scale(1.2);
 }
 
 .favIcon svg {

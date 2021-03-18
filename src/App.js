@@ -88,6 +88,8 @@ const App = () => {
 
 
 
+
+
   return (
     <div className="App">
       <Navbar />
@@ -95,16 +97,19 @@ const App = () => {
       {loading ? <Ouroboro /> :
 
         <Switch>
-          <Route exact path="/">
-            <PokeList amount={POKEMON_NUMBER} />
-          </Route>
-
           <Route path="/favorites">
             <Favorites pokeIds={[1, 2, 3, 80, 5, 6]} />
           </Route>
 
+          <Route path="/pokemon/type/:species">
+            <PokeList />
+          </Route>
           <Route path="/pokemon/:id">
             <PokeInfo />
+          </Route>
+
+          <Route path="/">
+            <PokeList species="all" />
           </Route>
         </Switch>}
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromFavorite } from '../../redux/general/generalActions';
@@ -9,13 +9,25 @@ import classes from './Favorites.module.css';
 const Favorites = ({ pokeIds }) => {
     const cards = useSelector(state => state.generalReducer);
     const dispatch = useDispatch();
+    const [favs, setFavs] = useState([]);
 
+
+    useEffect(() => {
+        const data = localStorage.getItem('favorites');
+        if (data) setFavs(JSON.parse(data));
+
+    }, [])
+
+    useEffect(() => {
+        setFavs(cards.filter(data => data.favorite === true));
+        localStorage.setItem('favorites', JSON.stringify(favs));
+    });
 
     return (
         <div className={classes.favorites}>
             <div className="Container">
                 <div className={classes.grid} >
-                    {cards.filter(data => data.favorite === true).map((data, index) => (
+                    {favs.map((data, index) => (
                         <div key={index} className={classes.cardContainer}>
                             <div className={classes.badgeContainer} onClick={() => dispatch(removeFromFavorite(data))}>
                                 <FaTrash className={classes.badgeRight} />
