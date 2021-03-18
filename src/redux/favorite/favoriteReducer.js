@@ -1,5 +1,5 @@
 import { ADD_TO_FAVORITE, REMOVE_FROM_FAVORITE } from './favoriteActionTypes';
-const initialState = [{}];
+const initialState = [];
 
 const favoriteReducer = (state = initialState, action) => {
     const { type, payload } = action;

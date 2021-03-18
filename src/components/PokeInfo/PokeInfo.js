@@ -18,7 +18,7 @@ const PokeInfo = () => {
 
     return (
         <div >
-            <PokeCard pokeId={card.id} pic={card.pic} name={card.name} types={card.types} moves={card.moves} evolveChain={card.evolveChain} games={card.games} evolveFrom detailed={true} />)
+            <PokeCard pokeId={card.id} pic={card.pic} name={card.name} types={card.types} moves={card.moves} evolveChain={card.evolveChain} games={card.games} evolveFrom={card.evolveFrom} detailed={true} />)
         </div>
     )
 }

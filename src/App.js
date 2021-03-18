@@ -17,7 +17,7 @@ import PokeInfo from './components/PokeInfo/PokeInfo';
 
 const App = () => {
   const POKEMON_NUMBER = 151;
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -25,7 +25,6 @@ const App = () => {
 
     const addToStore = async (pokeId) => {
       try {
-        setLoading(true);
 
         const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}`);
         const pic = data.sprites.other.dream_world.front_default;
@@ -47,12 +46,14 @@ const App = () => {
 
         //theres only 2 at max evolves
         const evolveArr = [];
+        let evolveFlag = false;
         let firstEvolve = "firstev";
         if (firstEvolve && res.data.chain.evolves_to) {
           firstEvolve = res.data.chain.evolves_to[0];
         }
         if (firstEvolve && firstEvolve.species.name !== data.name) {
           evolveArr.push(firstEvolve.species.name);
+          evolveFlag = true;
         }
 
         let secondEvolve = "secondev";
@@ -60,31 +61,31 @@ const App = () => {
           secondEvolve = res.data.chain.evolves_to[0].evolves_to[0];
         if (secondEvolve && secondEvolve.species && secondEvolve.species.name !== data.name) {
           evolveArr.push(secondEvolve.species.name);
+          evolveFlag = true;
+
+
         }
-        const evolveChain = evolveArr.map(ev => ev);
+
+        let evolveChain = ["can't evolve"];
+        if (evolveFlag) evolveChain = evolveArr.map(ev => ev);
         const obj = { id: pokeId, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom };
         dispatch(addData(obj));
 
-        // setLoading(false);
       } catch (error) {
         console.log(error);
-        // setLoading(false);
+        setLoading(false);
 
       }
 
     }
 
-    setLoading(true);
 
     for (let i = 1; i <= POKEMON_NUMBER; i++) {
-      setLoading(true);
-
       addToStore(i);
     }
+
     setLoading(false);
 
-
-    // fetch();
   }, []);
 
 
