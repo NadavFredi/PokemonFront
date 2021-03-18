@@ -12,6 +12,7 @@ const PokeList = ({ species }) => {
     }, [])
 
     const cards = useSelector(state => state.generalReducer);
+    console.log(cards.filter(card => card.types.includes(type)));
 
 
 

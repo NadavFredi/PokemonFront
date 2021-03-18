@@ -84,7 +84,7 @@ const App = () => {
 
     setLoading(false);
 
-  }, []);
+  }, [dispatch]);
 
 
 
