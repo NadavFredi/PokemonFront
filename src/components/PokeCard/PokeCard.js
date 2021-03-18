@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import classes from './PokeCard.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-
-import axios from 'axios';
-import Backdrop from '../Backdrop/Backdrop';
-// import Spinner from '../Spinner/Spinner';
-import { Ouroboro } from 'react-spinners-css';
+import React from 'react';
+import { BsStar } from "react-icons/bs";
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addToFavorite } from '../../redux/favorite/favoriteActions';
+import classes from './PokeCard.module.css';
+
 
 const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom }) => {
-
+    const obj = { pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom };
+    const dispatch = useDispatch();
     const matchClassTo = (btnStyle, type) => {
         if (type === "grass") btnStyle.push(classes.grass);
         if (type === "fire") btnStyle.push(classes.fire);
@@ -32,9 +31,13 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
 
     }
 
+
+
     const normalContent = (
         <div className={classes.pokeCard}>
-            <img src={pic} className={classes.avatar} alt="pic" />
+            <Link to={`/pokemon/${pokeId}`}   >
+                <img src={pic} className={classes.avatar} alt="pic" />
+            </Link>
             <div className={classes.flex}>
                 <div className={classes.id}>#{pokeId}</div>
                 <div className={classes.name}>{name}</div>
@@ -48,6 +51,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 </div>
 
             </div>
+            <div className={classes.favIcon} onClick={() => dispatch(addToFavorite(obj))}> <BsStar /></div>
         </div>
 
     );
@@ -65,7 +69,9 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
     let content;
     const detailedcontent = (
         <div className={classes.pokeCardDetailed}>
-            <img src={pic} className={classes.avatar} alt="pic" />
+            <Link to={`/pokemon/${pokeId}`}   >
+                <img src={pic} className={classes.avatar} alt="pic" />
+            </Link>
             <div className={classes.flexDetailed}>
                 <div className={classes.idDetailed}>#{pokeId}</div>
                 <div className={classes.nameDetailed}>{name}</div>
@@ -96,7 +102,6 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 </div>
             </div>
 
-            {/* copy */}
             <div className={classes.detailFlex}>
                 <div className={classes.detailContainer}>
                     <div className={classes.detailTitle}>
@@ -131,11 +136,9 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
 
     return (
 
-        <Link to={`/pokemon/${pokeId}`}   >
-            {/* {loading && <div className={classes.pokeCard}> <Ouroboro /></div>}
-            {!loading && content} */}
-            {content}
-        </Link>
+        <div >
+            { content}
+        </div>
     )
 }
 

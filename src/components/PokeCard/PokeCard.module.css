@@ -25,7 +25,6 @@
 }
 
 .pokeCard:hover {
-  cursor: pointer;
   transform: translateY(-5px);
 }
 
@@ -35,6 +34,7 @@
   background-color: var(--light-gray);
   border-radius: 10px 10px 0 0;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .id {
@@ -109,6 +109,20 @@
   border-radius: 5px;
   background-color: var(--light-blue);
   font-size: 1rem;
+}
+
+.favIcon svg {
+  position: absolute;
+  color: var(--yellow);
+  bottom: 1.15rem;
+  right: 1.2rem;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+}
+
+.favIcon svg:hover {
+  transform: scale(1.3);
 }
 
 .fly {

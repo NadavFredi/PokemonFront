@@ -7,7 +7,7 @@ const favoriteReducer = (state = initialState, action) => {
         case ADD_TO_FAVORITE:
             return [...state, payload];
         case REMOVE_FROM_FAVORITE:
-            return state.filter(fav => fav.id !== payload);
+            return state.filter(fav => fav.pokeId !== payload);
         default:
             return state;
     }

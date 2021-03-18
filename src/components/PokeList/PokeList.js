@@ -11,7 +11,7 @@ const PokeList = ({ amount, toggle }) => {
     return (
         <div className="Container" >
             <div className={classes.grid} >
-                {cards.map((data, index) => <PokeCard pokeId={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFromdetailed={false} />)}
+                {cards.map((data, index) => <PokeCard pokeId={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom detailed={false} />)}
             </div>
         </div>
     )

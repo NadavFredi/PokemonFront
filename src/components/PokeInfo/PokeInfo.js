@@ -1,7 +1,6 @@
-import classes from './PokeInfo.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
-import { useSelector, useDispatch } from 'react-redux';
 
 
 const PokeInfo = () => {
@@ -14,7 +13,7 @@ const PokeInfo = () => {
 
 
     const cards = useSelector(state => state.generalReducer);
-    const card = cards.filter(card => card.id == id)[0];
+    const card = cards.filter(card => card.id === id.toString())[0];
 
     return (
         <div >

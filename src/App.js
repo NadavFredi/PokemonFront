@@ -1,19 +1,17 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addData } from './redux/general/generalActions';
-import { Ouroboro } from 'react-spinners-css';
-
-import Navbar from './components/Navbar/Navbar';
-import PokeList from './components/PokeList/PokeList';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  Route, Switch
+} from "react-router-dom";
+import { Ouroboro } from 'react-spinners-css';
+import './App.css';
 import Favorites from './components/Favorites/Favorites';
+import Navbar from './components/Navbar/Navbar';
 import PokeInfo from './components/PokeInfo/PokeInfo';
+import PokeList from './components/PokeList/PokeList';
+import { addData } from './redux/general/generalActions';
+
 
 const App = () => {
   const POKEMON_NUMBER = 151;
