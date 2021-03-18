@@ -1,5 +1,5 @@
 import { ADD_DATA } from './generalActionTypes'
-
+import { ADD_TO_FAVORITE, REMOVE_FROM_FAVORITE } from '../favorite/favoriteActionTypes';
 const initialState = [];
 
 const general = (state = initialState, action) => {
@@ -7,6 +7,10 @@ const general = (state = initialState, action) => {
     switch (type) {
         case ADD_DATA:
             return [...state, payload];
+        case ADD_TO_FAVORITE:
+            return [...state.filter(fav => fav.pokeId !== payload.pokeId), { ...payload, favorite: true }];
+        case REMOVE_FROM_FAVORITE:
+            return [...state.filter(fav => fav.pokeId !== payload.pokeId), { ...payload, favorite: false }];
         default:
             return state;
     }

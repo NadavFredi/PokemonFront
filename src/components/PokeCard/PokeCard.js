@@ -4,22 +4,17 @@ import { BsFillStarFill } from "react-icons/bs";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToFavorite } from '../../redux/favorite/favoriteActions';
+import { addToFavorite, removeFromFavorite } from '../../redux/general/generalActions';
 import classes from './PokeCard.module.css';
 
 
 
-const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom }) => {
+const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom, favorite }) => {
 
     const FAVORITE_NUMBER = 6;
-
-    const obj = { pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom };
     const dispatch = useDispatch();
-    const [isTwice, setIsTwice] = useState();
 
-    useEffect(() => {
-        setIsTwice(isInFavorite(obj));
-    }, []);
+    const obj = { pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom, favorite };
 
 
     const matchClassTo = (btnStyle, type) => {
@@ -44,25 +39,8 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
 
     }
 
-
-    const favCards = useSelector(state => state.favoriteReducer);
-    // console.log("favcards", favCards);
-
-    const handleAddFavorite = (card) => {
-        console.log("is twice:", isTwice);
-        const flag = isInFavorite(card);
-        if (favCards.length >= FAVORITE_NUMBER) return false;
-        if (!isTwice)
-            dispatch(addToFavorite(obj));
-    }
-
-
-    const isInFavorite = (card) => {
-        favCards.forEach(element => {
-            console.log(element.pokeId, card.pokeId);
-            console.log("inside:", (element.pokeId === card.pokeId));
-            if (element.pokeId === card.pokeId) setIsTwice(true);
-        });
+    const handleFavorite = () => {
+        favorite ? dispatch(removeFromFavorite(obj)) : dispatch(addToFavorite(obj));
     }
 
     const normalContent = (
@@ -83,7 +61,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 </div>
 
             </div>
-            <div className={classes.favIcon} onClick={() => handleAddFavorite(obj)}> {isTwice ? <div> <BsFillStarFill /></div> : <BsStar />}</div>
+            <div className={classes.favIcon} onClick={() => handleFavorite()}> {favorite ? <div> <BsFillStarFill /></div> : <BsStar />}</div>
         </div>
 
     );

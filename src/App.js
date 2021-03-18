@@ -66,7 +66,7 @@ const App = () => {
 
         let evolveChain = ["can't evolve"];
         if (evolveFlag) evolveChain = evolveArr.map(ev => ev);
-        const obj = { id: pokeId, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom };
+        const obj = { id: pokeId, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom, favorite: false };
         dispatch(addData(obj));
 
       } catch (error) {

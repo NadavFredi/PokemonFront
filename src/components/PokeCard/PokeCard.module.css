@@ -1,6 +1,7 @@
 @import url("../../utilities/vars.css");
 .pokeCard {
   height: 250px;
+  min-width: 260px;
   width: 90%;
   border-radius: 10px;
   background-color: #fff;

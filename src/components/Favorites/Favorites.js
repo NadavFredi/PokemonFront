@@ -10,15 +10,16 @@ const Favorites = ({ pokeIds }) => {
     const cards = useSelector(state => state.favoriteReducer);
     const dispatch = useDispatch();
 
+
     return (
         <div className={classes.favorites}>
             <div className={classes.grid} >
-                {cards.map((data, index) => (
+                {cards.filter(data => data.favorite === true).map((data, index) => (
                     <div key={index} className={classes.cardContainer}>
-                        <div className={classes.badgeContainer} onClick={() => dispatch(removeFromFavorite(data.pokeId))}>
+                        <div className={classes.badgeContainer} onClick={() => dispatch(removeFromFavorite(data))}>
                             <FaTrash className={classes.badgeRight} />
                         </div>
-                        <PokeCard pokeId={data.pokeId} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom detailed={false} />
+                        <PokeCard pokeId={data.pokeId} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />
                     </div>
                 ))}
             </div>
