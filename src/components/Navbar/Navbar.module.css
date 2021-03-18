@@ -21,6 +21,10 @@
   /* margin: 0 2rem 0 2rem; */
 }
 
+.flex img {
+  transform: scale(1.3);
+}
+
 a:-webkit-any-link {
   color: #fff;
   text-decoration: none;

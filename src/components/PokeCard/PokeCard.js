@@ -78,9 +78,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
     let content;
     const detailedcontent = (
         <div className={classes.pokeCardDetailed}>
-            <Link to={`/ pokemon / ${pokeId} `}   >
-                <img src={pic} className={classes.avatar} alt="pic" />
-            </Link>
+            <img src={pic} className={classes.avatar} alt="pic" />
             <div className={classes.flexDetailed}>
                 <div className={classes.idDetailed}>#{pokeId}</div>
                 <div className={classes.nameDetailed}>{name}</div>
