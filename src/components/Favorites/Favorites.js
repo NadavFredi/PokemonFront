@@ -7,13 +7,13 @@ import classes from './Favorites.module.css';
 
 
 const Favorites = ({ pokeIds }) => {
-    const cards2 = useSelector(state => state.favoriteReducer);
+    const cards = useSelector(state => state.favoriteReducer);
     const dispatch = useDispatch();
 
     return (
         <div className={classes.favorites}>
             <div className={classes.grid} >
-                {cards2.map((data, index) => (
+                {cards.map((data, index) => (
                     <div key={index} className={classes.cardContainer}>
                         <div className={classes.badgeContainer} onClick={() => dispatch(removeFromFavorite(data.pokeId))}>
                             <FaTrash className={classes.badgeRight} />

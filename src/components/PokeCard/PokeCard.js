@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BsStar } from "react-icons/bs";
-import { useDispatch } from 'react-redux';
+import { BsFillStarFill } from "react-icons/bs";
+
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToFavorite } from '../../redux/favorite/favoriteActions';
 import classes from './PokeCard.module.css';
 
 
+
 const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom }) => {
+
+    const FAVORITE_NUMBER = 6;
+
     const obj = { pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom };
     const dispatch = useDispatch();
+    const [isTwice, setIsTwice] = useState();
+
+    useEffect(() => {
+        setIsTwice(isInFavorite(obj));
+    }, []);
+
+
     const matchClassTo = (btnStyle, type) => {
         if (type === "grass") btnStyle.push(classes.grass);
         if (type === "fire") btnStyle.push(classes.fire);
@@ -32,10 +45,29 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
     }
 
 
+    const favCards = useSelector(state => state.favoriteReducer);
+    // console.log("favcards", favCards);
+
+    const handleAddFavorite = (card) => {
+        console.log("is twice:", isTwice);
+        const flag = isInFavorite(card);
+        if (favCards.length >= FAVORITE_NUMBER) return false;
+        if (!isTwice)
+            dispatch(addToFavorite(obj));
+    }
+
+
+    const isInFavorite = (card) => {
+        favCards.forEach(element => {
+            console.log(element.pokeId, card.pokeId);
+            console.log("inside:", (element.pokeId === card.pokeId));
+            if (element.pokeId === card.pokeId) setIsTwice(true);
+        });
+    }
 
     const normalContent = (
         <div className={classes.pokeCard}>
-            <Link to={`/pokemon/${pokeId}`}   >
+            <Link to={`/pokemon/${pokeId} `}   >
                 <img src={pic} className={classes.avatar} alt="pic" />
             </Link>
             <div className={classes.flex}>
@@ -51,7 +83,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 </div>
 
             </div>
-            <div className={classes.favIcon} onClick={() => dispatch(addToFavorite(obj))}> <BsStar /></div>
+            <div className={classes.favIcon} onClick={() => handleAddFavorite(obj)}> {isTwice ? <div> <BsFillStarFill /></div> : <BsStar />}</div>
         </div>
 
     );
@@ -69,7 +101,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
     let content;
     const detailedcontent = (
         <div className={classes.pokeCardDetailed}>
-            <Link to={`/pokemon/${pokeId}`}   >
+            <Link to={`/ pokemon / ${pokeId} `}   >
                 <img src={pic} className={classes.avatar} alt="pic" />
             </Link>
             <div className={classes.flexDetailed}>

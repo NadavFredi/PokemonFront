@@ -4,9 +4,7 @@ import PokeCard from '../PokeCard/PokeCard';
 
 
 const PokeInfo = () => {
-    useEffect(() => {
-        console.log(card);
-    }, [])
+
     let path = window.location.pathname.slice(1);
     const idIndex = path.indexOf("/");
     const id = path.slice(idIndex + 1);
