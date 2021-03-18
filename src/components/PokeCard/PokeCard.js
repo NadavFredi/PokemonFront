@@ -11,7 +11,6 @@ import classes from './PokeCard.module.css';
 
 const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom, favorite }) => {
 
-    const FAVORITE_NUMBER = 6;
     const dispatch = useDispatch();
 
     const obj = { pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom, favorite };
@@ -39,8 +38,8 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
 
     }
 
-    const handleFavorite = () => {
-        favorite ? dispatch(removeFromFavorite(obj)) : dispatch(addToFavorite(obj));
+    const handleFavorite = (obj) => {
+        obj.favorite ? dispatch(removeFromFavorite(obj)) : dispatch(addToFavorite(obj));
     }
 
     const normalContent = (
@@ -52,16 +51,16 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 <div className={classes.id}>#{pokeId}</div>
                 <div className={classes.name}>{name}</div>
                 <div className={classes.types}>
-                    {types && types.map(type => {
+                    {types && types.map((type, index) => {
                         const btnStyle = [classes.type];
                         return (
-                            <div className={matchClassTo(btnStyle, type)} >{type}</div>
+                            <div key={index} className={matchClassTo(btnStyle, type)} >{type}</div>
                         )
                     })}
                 </div>
 
             </div>
-            <div className={classes.favIcon} onClick={() => handleFavorite()}> {favorite ? <div> <BsFillStarFill /></div> : <BsStar />}</div>
+            <div className={classes.favIcon} onClick={() => handleFavorite(obj)}> {favorite ? <div> <BsFillStarFill /></div> : <BsStar />}</div>
         </div>
 
     );
@@ -86,10 +85,10 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 <div className={classes.idDetailed}>#{pokeId}</div>
                 <div className={classes.nameDetailed}>{name}</div>
                 <div className={classes.typesDetailed}>
-                    {types && types.map(type => {
+                    {types && types.map((type, index) => {
                         const btnStyle = [classes.typeDetailed];
                         return (
-                            <div className={matchClassTo(btnStyle, type)} >{type}</div>
+                            <div key={index} className={matchClassTo(btnStyle, type)} >{type}</div>
                         )
                     })}
                 </div>
@@ -108,7 +107,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                         can evolve to
                         </div>
 
-                    {evolveChain && evolveChain.map(el => <div className={classes.detailData}>{el} </div>)}
+                    {evolveChain && evolveChain.map((el, index) => <div key={index} className={classes.detailData}>{el} </div>)}
                 </div>
             </div>
 
@@ -118,7 +117,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                         moves of pokemon
                     </div>
                     <div className={movesGrid}>
-                        {moves && moves.map(el => <div className={classes.detailData}>{el} </div>)}
+                        {moves && moves.map((el, index) => <div key={index} className={classes.detailData}>{el} </div>)}
                     </div>
 
                 </div>
@@ -129,7 +128,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 </div>
 
                 <div className={gamesGrid}>
-                    {games && games.map(el => <div className={classes.detailData}>{el} </div>)}
+                    {games && games.map((el, index) => <div key={index} className={classes.detailData}>{el} </div>)}
                 </div>
             </div>
         </div>

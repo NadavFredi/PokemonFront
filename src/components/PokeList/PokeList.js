@@ -4,10 +4,10 @@ import PokeCard from '../PokeCard/PokeCard';
 import classes from './PokeList.module.css';
 
 
-const PokeList = ({ amount, toggle }) => {
+const PokeList = () => {
 
     const cards = useSelector(state => state.generalReducer);
-
+    console.log("render");
     return (
         <div className="Container" >
             <div className={classes.grid} >
