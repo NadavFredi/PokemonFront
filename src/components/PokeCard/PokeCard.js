@@ -89,7 +89,9 @@ const PokeCard = ({ id, detailed, pic, name, types, moves, evolveChain, games, e
                     {types && types.map((type, index) => {
                         const btnStyle = [classes.typeDetailed];
                         return (
-                            <div key={index} className={matchClassTo(btnStyle, type)} >{type}</div>
+                            <Link to={`/pokemon/type/${type}`}>
+                                <div key={index} className={matchClassTo(btnStyle, type)} >{type}</div>
+                            </Link>
                         )
                     })}
                 </div>

@@ -8,27 +8,9 @@ import classes from './Favorites.module.css';
 
 const Favorites = () => {
     const cards = useSelector(state => state.generalReducer);
-    const favCards = cards.filter(card => card.favorite === true);
+    const favs = cards.filter(card => card.favorite === true);
     const dispatch = useDispatch();
-    const [favs, setFavs] = useState(favCards);
 
-    // const [dis, setDis] = useState(dispatch);
-    // useEffect(() => {
-    //     const data = localStorage.getItem('favorites');
-    //     if (data) setFavs(JSON.parse(data));
-
-    // }, [])
-
-    // useEffect(() => {
-    //     setFavs(cards.filter(data => data.favorite === true));
-    //     localStorage.setItem('favorites', JSON.stringify(favs));
-    // }, []);
-
-    useEffect(() => {
-        setFavs(favCards);
-    }, [cards, favCards]);
-
-    const position = classes.rel;
     return (
         <div className={classes.favorites}>
             <div className="Container">
