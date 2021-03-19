@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
+import { useLocation } from 'react-router-dom'
+
 
 
 const PokeInfo = () => {
 
-    let path = window.location.pathname.slice(1);
-    const idIndex = path.indexOf("/");
-    const id = path.slice(idIndex + 1);
+    const initId = window.location.pathname.split('/').pop();
+    const [id, setId] = useState(initId);
+
+
+    let location = useLocation();
+    useEffect(() => {
+        setId(location.pathname.split('/').pop());
+    }, [location]);
 
 
     const cards = useSelector(state => state.generalReducer);
-    const card = cards.filter(c => c.id === id)[0];
+
+    const card = cards.filter(c => { console.log(`c.id: ${c.id} id: ${id} ${id === c.id}`); return c.id == id })[0];
+    // console.log(card);
 
 
     return (

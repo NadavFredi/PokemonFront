@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
 import classes from './PokeList.module.css';
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 
 const PokeList = ({ species }) => {
@@ -15,16 +15,9 @@ const PokeList = ({ species }) => {
         setType(location.pathname.split('/').pop().toString());
     }, [location]);
 
-    const history = useHistory()
-    useEffect(() => {
-        return history.listen((location) => {
-            setType(initPath);
-        })
-    }, [history, initPath]);
 
 
     const cards = useSelector(state => state.generalReducer);
-
     const filtered = (
         <div className={classes.grid} >
             {cards.filter(card => card.types.includes(type)).map((data, index) => <PokeCard id={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />)}
