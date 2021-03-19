@@ -24,7 +24,7 @@ const App = () => {
     const addToStore = async (id) => {
       try {
 
-        const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${id}`);
+        const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
         const pic = data.sprites.other.dream_world.front_default;
         const name = data.name;
         const types = data.types.map(type => type.type.name);
