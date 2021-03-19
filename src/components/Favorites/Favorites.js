@@ -6,23 +6,29 @@ import PokeCard from '../PokeCard/PokeCard';
 import classes from './Favorites.module.css';
 
 
-const Favorites = ({ pokeIds }) => {
+const Favorites = () => {
     const cards = useSelector(state => state.generalReducer);
+    const favCards = cards.filter(card => card.favorite === true);
     const dispatch = useDispatch();
-    const [favs, setFavs] = useState([]);
+    const [favs, setFavs] = useState(favCards);
 
+    // const [dis, setDis] = useState(dispatch);
+    // useEffect(() => {
+    //     const data = localStorage.getItem('favorites');
+    //     if (data) setFavs(JSON.parse(data));
+
+    // }, [])
+
+    // useEffect(() => {
+    //     setFavs(cards.filter(data => data.favorite === true));
+    //     localStorage.setItem('favorites', JSON.stringify(favs));
+    // }, []);
 
     useEffect(() => {
-        const data = localStorage.getItem('favorites');
-        if (data) setFavs(JSON.parse(data));
+        setFavs(favCards);
+    }, [cards, favCards]);
 
-    }, [])
-
-    useEffect(() => {
-        setFavs(cards.filter(data => data.favorite === true));
-        localStorage.setItem('favorites', JSON.stringify(favs));
-    });
-
+    const position = classes.rel;
     return (
         <div className={classes.favorites}>
             <div className="Container">
@@ -32,13 +38,13 @@ const Favorites = ({ pokeIds }) => {
                             <div className={classes.badgeContainer} onClick={() => dispatch(removeFromFavorite(data))}>
                                 <FaTrash className={classes.badgeRight} />
                             </div>
-                            <PokeCard pokeId={data.pokeId} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />
+                            <PokeCard id={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />
                         </div>
                     ))}
                 </div>
             </div>
 
-            <h1 > Those are all<br />my Favorite Pokemons! </h1>
+            {favs.length >= 1 ? <h1 > Those are all<br />my Favorite Pokemons! </h1> : <h1 className={classes.emptyFavorite} > No favorite <br />pokemons choosed </h1>}
         </div>
     )
 }

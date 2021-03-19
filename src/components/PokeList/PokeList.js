@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
 import classes from './PokeList.module.css';
 
 
 const PokeList = ({ species }) => {
-    const [type, setType] = useState("");
+    const path = window.location.pathname.split('/').pop().toString();
+    const [type, setType] = useState(path);
 
-    useEffect(() => {
-        setType(window.location.pathname.split('/').pop().toString());
-    }, [])
-
+    const dispatch = useDispatch();
     const cards = useSelector(state => state.generalReducer);
-    console.log(cards.filter(card => card.types.includes(type)));
+    // const [cards, setCards] = useState(cardSelector);
+
+    // useEffect(() => {
+    //     setCards(cardSelector);
+
+    // }, [cardSelector, dispatch]);
+
+    // console.log(cards.filter(card => card.types.includes(type)));
+    // console.log(cards.filter(card => card.types.includes('fire')));
 
 
 
     const filtered = (
         <div className={classes.grid} >
-            {cards.filter(card => card.types.includes(type)).map((data, index) => <PokeCard pokeId={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />)}
+            {cards.filter(card => card.types.includes(type)).map((data, index) => <PokeCard id={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />)}
 
 
         </div>
@@ -27,7 +33,7 @@ const PokeList = ({ species }) => {
 
     const withoutFilter = (
         <div className={classes.grid} >
-            {cards.map((data, index) => <PokeCard pokeId={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />)}
+            {cards.map((data, index) => <PokeCard id={data.id} key={index} pic={data.pic} name={data.name} types={data.types} moves={data.moves} evolveChain={data.evolveChain} games={data.games} evolveFrom={data.evolveFrom} favorite={data.favorite} detailed={false} />)}
         </div>
     );
 

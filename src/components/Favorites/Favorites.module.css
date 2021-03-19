@@ -8,6 +8,17 @@
     padding: 0 10px;
     width: 95%;
   }
+  .favorites h1 {
+    color: var(--yellow);
+    font-size: 2.5rem;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    bottom: 0;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    letter-spacing: 1.2px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -19,6 +30,19 @@
     gap: 1rem;
     padding: 0 10px;
     width: 95%;
+    margin-top: 2rem;
+  }
+
+  .favorites h1 {
+    color: var(--yellow);
+    font-size: 2.5rem;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    bottom: 0;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    letter-spacing: 1.2px;
   }
 }
 
@@ -32,18 +56,18 @@
     padding: 0 10px;
     width: 95%;
   }
-}
 
-.favorites h1 {
-  color: var(--yellow);
-  font-size: 2.5rem;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 0;
-  text-transform: capitalize;
-  letter-spacing: 1.2px;
+  .favorites h1 {
+    color: var(--yellow);
+    font-size: 2.5rem;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    letter-spacing: 1.2px;
+  }
 }
 
 .cardContainer {
@@ -69,4 +93,8 @@
   width: 100%;
   height: 100%;
   color: #fff;
+}
+
+.favorites .emptyFavorite {
+  position: absolute;
 }

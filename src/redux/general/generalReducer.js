@@ -9,9 +9,9 @@ const general = (state = initialState, action) => {
         case ADD_TO_FAVORITE:
             const favs = state.filter(fav => fav.favorite === true);
             if (favs.length >= FAVORITE_NUMBER) return state;
-            return [...state.filter(fav => fav.pokeId !== payload.pokeId), { ...payload, favorite: true }];
+            return [...state.filter(fav => fav.id !== payload.id), { ...payload, favorite: true }];
         case REMOVE_FROM_FAVORITE:
-            return [...state.filter(fav => fav.pokeId !== payload.pokeId), { ...payload, favorite: false }];
+            return [...state.filter(fav => fav.id !== payload.id), { ...payload, favorite: false }];
         default:
             return state;
     }
