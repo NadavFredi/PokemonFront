@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
 
@@ -11,7 +11,7 @@ const PokeInfo = () => {
 
 
     const cards = useSelector(state => state.generalReducer);
-    const card = cards.filter(c => c.id == id)[0];
+    const card = cards.filter(c => c.id === id)[0];
 
 
     return (

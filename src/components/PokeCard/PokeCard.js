@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { BsStar } from "react-icons/bs";
-import { BsFillStarFill } from "react-icons/bs";
-
+import React from 'react';
+import { BsFillStarFill, BsStar } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToFavorite, removeFromFavorite } from '../../redux/general/generalActions';
 import classes from './PokeCard.module.css';
+
 
 
 

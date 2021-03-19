@@ -2,25 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
 import classes from './PokeList.module.css';
+import { useHistory, useLocation } from 'react-router-dom'
 
 
 const PokeList = ({ species }) => {
-    const path = window.location.pathname.split('/').pop().toString();
-    const [type, setType] = useState(path);
+    const initPath = window.location.pathname.split('/').pop().toString();
+    const [type, setType] = useState(initPath);
 
-    const dispatch = useDispatch();
+
+    let location = useLocation();
+    useEffect(() => {
+        setType(location.pathname.split('/').pop().toString());
+    }, [location]);
+
+    const history = useHistory()
+    useEffect(() => {
+        return history.listen((location) => {
+            setType(initPath);
+        })
+    }, [history, initPath]);
+
+
     const cards = useSelector(state => state.generalReducer);
-    // const [cards, setCards] = useState(cardSelector);
-
-    // useEffect(() => {
-    //     setCards(cardSelector);
-
-    // }, [cardSelector, dispatch]);
-
-    // console.log(cards.filter(card => card.types.includes(type)));
-    // console.log(cards.filter(card => card.types.includes('fire')));
-
-
 
     const filtered = (
         <div className={classes.grid} >
