@@ -15,6 +15,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
 
     const obj = { pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom, favorite };
 
+    // console.log(`favorite- ${favorite} name:${name}`);
 
     const matchClassTo = (btnStyle, type) => {
         if (type === "grass") btnStyle.push(classes.grass);
