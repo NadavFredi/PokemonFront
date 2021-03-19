@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BsStar } from "react-icons/bs";
-import { BsFillStarFill } from "react-icons/bs";
-
+import React from 'react';
+import { BsFillStarFill, BsStar } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToFavorite, removeFromFavorite } from '../../redux/general/generalActions';
@@ -9,11 +7,13 @@ import classes from './PokeCard.module.css';
 
 
 
-const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom, favorite }) => {
 
+const PokeCard = ({ id, detailed, pic, name, types, moves, evolveChain, games, evolveFrom, favorite }) => {
+
+    const cardSelector = useSelector(state => state.generalReducer);
+    const card = cardSelector.filter(card => card.id === id)[0];
     const dispatch = useDispatch();
 
-    const obj = { pokeId, detailed, id, pic, name, types, moves, evolveChain, games, evolveFrom, favorite };
 
     // console.log(`favorite- ${favorite} name:${name}`);
 
@@ -39,17 +39,17 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
 
     }
 
-    const handleFavorite = (obj) => {
-        obj.favorite ? dispatch(removeFromFavorite(obj)) : dispatch(addToFavorite(obj));
+    const handleFavorite = () => {
+        card.favorite ? dispatch(removeFromFavorite(card)) : dispatch(addToFavorite(card));
     }
 
     const normalContent = (
         <div className={classes.pokeCard}>
-            <Link to={`/pokemon/${pokeId} `}   >
+            <Link to={`/pokemon/${id}`}   >
                 <img src={pic} className={classes.avatar} alt="pic" />
             </Link>
             <div className={classes.flex}>
-                <div className={classes.id}>#{pokeId}</div>
+                <div className={classes.id}>#{id}</div>
                 <div className={classes.name}>{name}</div>
                 <div className={classes.types}>
                     {types && types.map((type, index) => {
@@ -63,7 +63,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
                 </div>
 
             </div>
-            <div className={classes.favIcon} onClick={() => handleFavorite(obj)}> {favorite ? <div> <BsFillStarFill /></div> : <BsStar />}</div>
+            <div className={classes.favIcon} onClick={() => handleFavorite()}> {favorite ? <div> <BsFillStarFill /></div> : <BsStar />}</div>
         </div>
 
     );
@@ -83,7 +83,7 @@ const PokeCard = ({ pokeId, detailed, id, pic, name, types, moves, evolveChain, 
         <div className={classes.pokeCardDetailed}>
             <img src={pic} className={classes.avatar} alt="pic" />
             <div className={classes.flexDetailed}>
-                <div className={classes.idDetailed}>#{pokeId}</div>
+                <div className={classes.idDetailed}>#{id}</div>
                 <div className={classes.nameDetailed}>{name}</div>
                 <div className={classes.typesDetailed}>
                     {types && types.map((type, index) => {

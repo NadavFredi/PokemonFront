@@ -21,10 +21,14 @@ const App = () => {
 
   useEffect(() => {
 
-    const addToStore = async (pokeId) => {
+    const addToStore = async (id) => {
       try {
 
+<<<<<<< HEAD
         const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokeId}`);
+=======
+        const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${id}`);
+>>>>>>> develop
         const pic = data.sprites.other.dream_world.front_default;
         const name = data.name;
         const types = data.types.map(type => type.type.name);
@@ -66,7 +70,7 @@ const App = () => {
 
         let evolveChain = ["can't evolve"];
         if (evolveFlag) evolveChain = evolveArr.map(ev => ev);
-        const obj = { id: pokeId, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom, favorite: false };
+        const obj = { id: id, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom, favorite: false };
         dispatch(addData(obj));
 
       } catch (error) {
@@ -84,7 +88,7 @@ const App = () => {
 
     setLoading(false);
 
-  }, [dispatch]);
+  }, []);
 
 
 
@@ -98,7 +102,7 @@ const App = () => {
 
         <Switch>
           <Route path="/favorites">
-            <Favorites pokeIds={[1, 2, 3, 80, 5, 6]} />
+            <Favorites />
           </Route>
 
           <Route path="/pokemon/type/:species">
