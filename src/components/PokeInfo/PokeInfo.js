@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
+import { useDispatch } from 'react-redux';
+import { fetchAll } from '../../redux/request/requestActions';
+
+
 
 
 const PokeInfo = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchAll());
+    }, [])
 
     let path = window.location.pathname.slice(1);
     const idIndex = path.indexOf("/");
@@ -18,6 +26,7 @@ const PokeInfo = () => {
     return (
         <div className="Container">
             <PokeCard id={card.id} pic={card.pic} name={card.name} types={card.types} moves={card.moves} evolveChain={card.evolveChain} games={card.games} evolveFrom={card.evolveFrom} detailed={true} />)
+
         </div>
     )
 }
