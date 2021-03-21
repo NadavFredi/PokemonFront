@@ -64,9 +64,15 @@ export const fetchSingle = (id) => async (dispatch, getState) => {
 
         }
 
+        let lsFavorites = localStorage.getItem('favorites');
+        lsFavorites = JSON.parse(lsFavorites);
+
+        let favStatus = false;
+        if (lsFavorites) lsFavorites.forEach(fav => { if (fav.id === id) favStatus = true; })
+
         let evolveChain = ["can't evolve"];
         if (evolveFlag) evolveChain = evolveArr.map(ev => ev);
-        const obj = { id: id, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom, favorite: false };
+        const obj = { id: id, pic: pic, name: name, types: types, moves: moves, evolveChain: evolveChain, games: games, evolveFrom: evolveFrom, favorite: favStatus };
         dispatch(addData(obj));
 
     } catch (error) {

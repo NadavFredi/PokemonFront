@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -10,8 +9,7 @@ import Favorites from './components/Favorites/Favorites';
 import Navbar from './components/Navbar/Navbar';
 import PokeInfo from './components/PokeInfo/PokeInfo';
 import PokeList from './components/PokeList/PokeList';
-import { addData } from './redux/general/generalActions';
-import { fetchAll, fetchSingle } from './redux/request/requestActions'
+import { fetchAll, fetchSingle } from './redux/request/requestActions';
 
 const App = () => {
   const POKEMON_NUMBER = 151;
@@ -23,11 +21,15 @@ const App = () => {
       dispatch(fetchSingle(i));
     }
     setLoading(false);
+
   }, []);
 
 
-
-
+  // useEffect(() => {
+  //   let lsFavorites = localStorage.getItem('favorites');
+  //   lsFavorites = JSON.parse(lsFavorites);
+  //   if (lsFavorites) lsFavorites.forEach(fav => dispatch(addToFavorite(fav)));
+  // }, [])
 
   return (
     <div className="App">
