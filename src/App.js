@@ -24,13 +24,6 @@ const App = () => {
 
   }, []);
 
-
-  // useEffect(() => {
-  //   let lsFavorites = localStorage.getItem('favorites');
-  //   lsFavorites = JSON.parse(lsFavorites);
-  //   if (lsFavorites) lsFavorites.forEach(fav => dispatch(addToFavorite(fav)));
-  // }, [])
-
   return (
     <div className="App">
       <Navbar />
