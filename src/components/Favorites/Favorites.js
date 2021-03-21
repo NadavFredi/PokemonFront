@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromFavorite } from '../../redux/general/generalActions';
@@ -10,6 +10,9 @@ const Favorites = () => {
     const cards = useSelector(state => state.generalReducer);
     const favs = cards.filter(card => card.favorite === true);
     const dispatch = useDispatch();
+
+
+
 
     return (
         <div className={classes.favorites}>

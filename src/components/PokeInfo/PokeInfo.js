@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAll } from '../../redux/request/requestActions';
 import PokeCard from '../PokeCard/PokeCard';
 
 
+
+
 const PokeInfo = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchAll());
+        console.log(localStorage.getItem('favorites'));
+
+    }, [])
 
     let path = window.location.pathname.slice(1);
     const idIndex = path.indexOf("/");
@@ -18,6 +27,7 @@ const PokeInfo = () => {
     return (
         <div className="Container">
             <PokeCard id={card.id} pic={card.pic} name={card.name} types={card.types} moves={card.moves} evolveChain={card.evolveChain} games={card.games} evolveFrom={card.evolveFrom} detailed={true} />)
+
         </div>
     )
 }

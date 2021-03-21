@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import PokeCard from '../PokeCard/PokeCard';
 import classes from './PokeList.module.css';
-import { useLocation } from 'react-router-dom'
 
 
 const PokeList = ({ species }) => {
