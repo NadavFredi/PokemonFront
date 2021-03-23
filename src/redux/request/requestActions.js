@@ -4,13 +4,25 @@ import axios from 'axios';
 
 const POKEMON_NUMBER = 151;
 
-export const fetchAll = () => async (dispatch, getState) => {
+export const fetchAll = () => async (dispatch) => {
     try {
         dispatch({ type: FETCH_ALL });
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${POKEMON_NUMBER}`);
+        let { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${POKEMON_NUMBER}`);
+        data = data.results;
+
+
+
+        data.forEach((pokemon, index) => {
+
+            let id = pokemon.url.split('/');
+            id = id[id.length - 2];
+            console.log(id);
+            return dispatch(fetchSingle(id))
+        });
+
         dispatch({
             type: FETCH_SUCCEED,
-            payload: res.data.results
+            payload: data
         })
 
     } catch (error) {

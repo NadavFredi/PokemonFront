@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAll } from '../../redux/request/requestActions';
+import { useSelector } from 'react-redux';
 import PokeCard from '../PokeCard/PokeCard';
 
 
 
 
 const PokeInfo = () => {
-    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchAll());
         console.log(localStorage.getItem('favorites'));
-
     }, [])
 
     let path = window.location.pathname.slice(1);
