@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Route, Switch
 } from "react-router-dom";
@@ -9,19 +9,13 @@ import Favorites from './components/Favorites/Favorites';
 import Navbar from './components/Navbar/Navbar';
 import PokeInfo from './components/PokeInfo/PokeInfo';
 import PokeList from './components/PokeList/PokeList';
-import { fetchAll, fetchSingle } from './redux/request/requestActions';
+import { fetchAll } from './redux/request/requestActions';
 
 const App = () => {
-  const POKEMON_NUMBER = 151;
-  const [loading, setLoading] = useState(true);
+  const { loading } = useSelector(state => state.requestReducer);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAll());
-    for (let i = 1; i <= POKEMON_NUMBER; i++) {
-      dispatch(fetchSingle(i));
-    }
-    setLoading(false);
-
   }, []);
 
   return (
